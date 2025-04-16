@@ -53,4 +53,6 @@ public class User {
     public int getPhoneNumber(){
         return this.numTel;
     }
+
+    //methods
 }
