@@ -38,4 +38,19 @@ public class User {
         this.numTel = numTel;
     }
     //getters
+    public String getName(){
+        return this.name;
+    }
+    public String getEmail(){
+        return this.email;
+    }
+    public String getType(){
+        return this.type;
+    }
+    public int getStudentNumber(){
+        return this.numEst;
+    }
+    public int getPhoneNumber(){
+        return this.numTel;
+    }
 }
