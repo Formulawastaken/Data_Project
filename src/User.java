@@ -1,14 +1,16 @@
 import java.util.Random;
+import java.time.*;
+import java.util.*;
 
 public class User {
 	private String name;
 	private String email;
 	private String type;
-	private int numEst;
-	private int numTel;
-    private static int id;
+	private String numEst;//i changed these to strings (they were int) since were not gonna be doing any operations with them<--
+	private String numTel;//i changed these to strings (they were int) since were not gonna be doing any operations with them<--
+    private int id; //i think it should'nt be static, just make a getter<--
 	
-	public User(String name,String email,String type,int numEst,int numTel) {
+	public User(String name,String email,String type,String numEst,String numTel) {
         Random random = new Random();
 		this.name = name;
 		this.email = email;
@@ -30,11 +32,14 @@ public class User {
         if(type == "Owner" || type == "Client" || type == "Both"){
             this.type = type;
         }
+        else{
+            System.out.println("Not a valid type for a user");//made an error message <--
+        }
     }
-    public void setStudentNumber(int numEst){
+    public void setStudentNumber(String numEst){
         this.numEst = numEst;
     }
-    public void setPhoneNumber(int numTel){
+    public void setPhoneNumber(String numTel){
         this.numTel = numTel;
     }
     //getters
@@ -47,11 +52,14 @@ public class User {
     public String getType(){
         return this.type;
     }
-    public int getStudentNumber(){
+    public String getStudentNumber(){
         return this.numEst;
     }
-    public int getPhoneNumber(){
+    public String getPhoneNumber(){
         return this.numTel;
+    }
+    public int getId(){ //made a getter for id's :) <--
+        return this.id;
     }
 
     //methods

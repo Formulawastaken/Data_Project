@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.time.*;
+import java.util.*;
 public class Vehicle {
     private int id;
     private String type;
@@ -7,6 +8,7 @@ public class Vehicle {
     private LocalTime startTime;
     private LocalTime endTime;
     private String place;
+    private User owner; //TODO
     //constructor
     public Vehicle(String type, String description, String startTime, String endTime, String place){
         Random random = new Random();
