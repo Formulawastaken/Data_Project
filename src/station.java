@@ -1,4 +1,3 @@
-import java.time.*;
 import java.util.*;
 //should everything be static? i think only the user list should be static bc everything else is proprietary to each station no? 
 public class station {
@@ -8,8 +7,8 @@ public class station {
     public static Queue<User> waitingList = new LinkedList<>();//waiting queue for clients when no vehicles are available
 
     //user cmds
-    public static void addUser(String name,String email,String type,String numEst,String numTel){
-        User newUser = new User(name, email, type, numEst, numTel);
+    public static void addUser(String name,String email,String type,String numEst,String numTel,int balance){
+        User newUser = new User(name, email, type, numEst, numTel,balance);
         users.add(newUser);
     }
     public static void removeUser(int id){
@@ -64,8 +63,8 @@ public class station {
     }
 
     //vehicle cmds
-    public static void addVehicle(String type, String description, String startTime, String endTime, String place ){
-        availableVehicles.add(new Vehicle(type,description,startTime,endTime, place));
+    public static void addVehicle(String type, String description, String startTime, String endTime, String place,String price ){
+        availableVehicles.add(new Vehicle(type,description,startTime,endTime, place,price));
     }
     public static void removeVehicle(int id){
         if(!availableVehicles.isEmpty()){

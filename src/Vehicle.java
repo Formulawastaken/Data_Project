@@ -1,6 +1,5 @@
-import java.util.Random;
 import java.time.*;
-import java.util.*;
+import java.util.Random;
 public class Vehicle {
     private int id;
     private String type;
@@ -9,8 +8,9 @@ public class Vehicle {
     private LocalTime endTime;
     private String place;
     private User owner; //TODO
+    private String price; //Added a way to give vehicles a price (in credits).
     //constructor
-    public Vehicle(String type, String description, String startTime, String endTime, String place){
+    public Vehicle(String type, String description, String startTime, String endTime, String place,String price){
         Random random = new Random();
         this.id = random.nextInt(1000); //setting a random integer between 0-1000 for unique id
         this.type=type;
@@ -20,6 +20,7 @@ public class Vehicle {
         this.startTime = LocalTime.of(Integer.parseInt(startTimeSplit[0]), Integer.parseInt(startTimeSplit[1]));  
         this.endTime = LocalTime.of(Integer.parseInt(endTimeSplit[0]), Integer.parseInt(endTimeSplit[1]));
         this.place=place;
+        this.price = price;//added price 
     }
     //setters 
     public void setDescription(String description){
@@ -39,6 +40,7 @@ public class Vehicle {
     public void setPlace(String place){
         this.place=place;
     }
+
     
     //getters
     public String getDescription(){

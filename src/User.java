@@ -1,6 +1,4 @@
 import java.util.Random;
-import java.time.*;
-import java.util.*;
 
 public class User {
 	private String name;
@@ -9,8 +7,9 @@ public class User {
 	private String numEst;//i changed these to strings (they were int) since were not gonna be doing any operations with them<--
 	private String numTel;//i changed these to strings (they were int) since were not gonna be doing any operations with them<--
     private int id; //i think it should'nt be static, just make a getter<--
+    private int balance;//to keep track of each users balance 
 	
-	public User(String name,String email,String type,String numEst,String numTel) {
+	public User(String name,String email,String type,String numEst,String numTel,int balance) {
         Random random = new Random();
 		this.name = name;
 		this.email = email;
@@ -19,6 +18,7 @@ public class User {
 		this.numTel = numTel;
         //setting a random integer between 0-1000 for unique id
         this.id = random.nextInt(1000);
+        this.balance = balance;
 	}
 	
 	//setters
@@ -42,6 +42,13 @@ public class User {
     public void setPhoneNumber(String numTel){
         this.numTel = numTel;
     }
+    public void setBalance(int balance){
+        if(balance > 0){
+            this.balance = balance;
+        } else {
+            System.out.println("Balance cannot be less than 0");
+        }
+    }
     //getters
     public String getName(){
         return this.name;
@@ -60,6 +67,9 @@ public class User {
     }
     public int getId(){ //made a getter for id's :) <--
         return this.id;
+    }
+    public int getBalance(){
+        return this.balance;
     }
 
     //methods
