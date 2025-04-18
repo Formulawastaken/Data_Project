@@ -1,3 +1,4 @@
+import java.time.*;
 import java.util.*;
 //should everything be static? i think only the user list should be static bc everything else is proprietary to each station no? 
 public class station {
@@ -6,9 +7,11 @@ public class station {
     public static Map<User,Vehicle> reservations = new HashMap<>(); //pairs clients with the veichle they reserved 
     public static Queue<User> waitingList = new LinkedList<>();//waiting queue for clients when no vehicles are available
 
-    //user cmds
-    public static void addUser(String name,String email,String type,String numEst,String numTel,int balance){
-        User newUser = new User(name, email, type, numEst, numTel,balance);
+
+
+//user cmds
+    public static void addUser(String name,String email,String type,String numEst,String numTel){
+        User newUser = new User(name, email, type, numEst, numTel, 0);
         users.add(newUser);
     }
     public static void removeUser(int id){
@@ -62,9 +65,9 @@ public class station {
         scanner.close();
     }
 
-    //vehicle cmds
-    public static void addVehicle(String type, String description, String startTime, String endTime, String place,String price ){
-        availableVehicles.add(new Vehicle(type,description,startTime,endTime, place,price));
+//vehicle cmds
+    public static void addVehicle(String type, String description, String startTime, String endTime, String place ){
+        availableVehicles.add(new Vehicle(type,description,startTime,endTime, place ));
     }
     public static void removeVehicle(int id){
         if(!availableVehicles.isEmpty()){
@@ -117,7 +120,15 @@ public class station {
             System.out.println("There are currently no vehicles to modify, please add one first.");
         }
     }
+//reservation cmds(TODO)
+    public static void addReservation(){
 
+    }
+    public static void removeReservation(){
 
+    }
+    public static void modifyReservation(){
+        
+    }
 
 }
