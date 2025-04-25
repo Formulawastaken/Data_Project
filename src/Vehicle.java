@@ -1,7 +1,7 @@
 import java.time.*;
 import java.util.*;
 public class Vehicle {
-    public static Set<Vehicle> availableVehicles = new HashSet<>(); //available vehicles for clients
+    public static Set<Vehicle> vehicles = new HashSet<>(); //list of all vehicles
     public static Set<Vehicle> toReturn = new HashSet<>();
     private int id;
     private static int lastID;
@@ -13,6 +13,7 @@ public class Vehicle {
     private User owner; //TODO maybe?
     private double price; //Added a way to give vehicles a price (in credits).
     private double fracTime;//Price for time after first hour;
+    private static boolean isAvailable; // to check if a vehicle is available in the availableVehicles list or not.
     //constructor
     public Vehicle(String type, String description, String startTime, String endTime, String place){
         this.id = lastID++; //Assigns the id incrementing from the last assigned id, should keep everyones id unique even if a user is deleted.
@@ -23,6 +24,7 @@ public class Vehicle {
         this.startTime = LocalTime.of(Integer.parseInt(startTimeSplit[0]), Integer.parseInt(startTimeSplit[1]));  
         this.endTime = LocalTime.of(Integer.parseInt(endTimeSplit[0]), Integer.parseInt(endTimeSplit[1]));
         this.place=place;
+        this.isAvailable = true;
         switch(type){
             case "Scooter":
             this.price=2;
@@ -62,6 +64,13 @@ public class Vehicle {
     public void setPlace(String place){
         this.place=place;
     }
+    public void setAvailable(boolean availability){
+        if(availability){
+           isAvailable = false;
+        }else{ 
+            isAvailable = true;
+        }
+    }
 
     
     //getters
@@ -86,6 +95,9 @@ public class Vehicle {
     public double getFracTime(){
         return this.fracTime;
     }
+    public boolean isAvailable(){
+        return isAvailable;
+    }
 
     //methods
     
@@ -98,18 +110,18 @@ public class Vehicle {
     }
 
     public static void addVehicle(String type, String description, String startTime, String endTime, String place ){
-        availableVehicles.add(new Vehicle(type,description,startTime,endTime, place ));
+        vehicles.add(new Vehicle(type,description,startTime,endTime, place ));
     }
     public static void removeVehicle(int id){
-        if(!availableVehicles.isEmpty()){
+        if(!vehicles.isEmpty()){
             Vehicle vehicle=null;
-            for(Vehicle v:availableVehicles){
+            for(Vehicle v:vehicles){
                 if(v.getId()==id){
                     vehicle=v;
                     break;
                 } 
             }
-            availableVehicles.remove(vehicle);
+            vehicles.remove(vehicle);
         }
         else{
             System.out.println("There are currently no users to modify, please add one first.");
@@ -118,10 +130,10 @@ public class Vehicle {
     }
 
     public static void modifyVehicle(int id, String command){
-        if(!availableVehicles.isEmpty()){
+        if(!vehicles.isEmpty()){
             Vehicle vehicle=null;
             Scanner scanner=new Scanner(System.in);
-            for(Vehicle v:availableVehicles){
+            for(Vehicle v:vehicles){
                 if(v.getId()==id){
                     vehicle=v;
                     break;
