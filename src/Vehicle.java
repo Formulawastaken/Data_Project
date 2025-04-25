@@ -3,6 +3,7 @@ import java.util.*;
 public class Vehicle {
     public static Set<Vehicle> availableVehicles = new HashSet<>(); //available vehicles for clients
     private int id;
+    private static int lastID;
     private String type;
     private String description;
     private LocalTime startTime;
@@ -13,9 +14,8 @@ public class Vehicle {
     private double fracTime;//Price for time after first hour;
     //constructor
     public Vehicle(String type, String description, String startTime, String endTime, String place){
-        Random random = new Random();
-        this.id = random.nextInt(1000); //setting a random integer between 0-1000 for unique id
-        this.type=type;
+        this.id = lastID++; //Assigns the id incrementing from the last assigned id, should keep everyones id unique even if a user is deleted.
+        this.type=type; 
         this.description=description;
         String[] startTimeSplit=startTime.split(":"); //splits the start time into hour and minutes
         String[] endTimeSplit=endTime.split(":"); //splits the end time into hour and minutes

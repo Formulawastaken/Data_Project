@@ -1,4 +1,3 @@
-import java.util.Random;
 import java.util.*;
 
 public class User {
@@ -8,19 +7,20 @@ public class User {
 	private String type;
 	private String numEst;//i changed these to strings (they were int) since were not gonna be doing any operations with them<--
 	private String numTel;//i changed these to strings (they were int) since were not gonna be doing any operations with them<--
-    private int id; //i think it should'nt be static, just make a getter<--
-    private int balance;//to keep track of each users balance 
+    private int id; //i think it should'nt be static, just make a getter
+    private static int lastID; //<-- Stores the last used id value to keep incrementing 
+    private int balance;//to keep track of each users balance
+    public static boolean hasReservation = false; //Used to check if the user has a reservation when trying to make one.
 	
 	public User(String name,String email,String type,String numEst,String numTel,int balance) {
-        Random random = new Random();
 		this.name = name;
 		this.email = email;
 		this.type = type;
 		this.numEst = numEst;
 		this.numTel = numTel;
-        //setting a random integer between 0-1000 for unique id
-        this.id = random.nextInt(1000);
+        this.id = lastID++; //Assigns the id incrementing from the last assigned id, should keep everyones id unique even if a user is deleted.
         this.balance = balance;
+        users.add(this);
 	}
 	
 	//setters
@@ -75,12 +75,6 @@ public class User {
     }
 
     //methods
-
-
-    public static void addUser(String name,String email,String type,String numEst,String numTel){
-        User newUser = new User(name, email, type, numEst, numTel, 0);
-        users.add(newUser);
-    }
     public static void removeUser(int id){
         if(!users.isEmpty()){ //checks if there are any users registered
         for(User user:users){
@@ -93,6 +87,9 @@ public class User {
         else{
             System.out.println("There are currently no users to remove, please add one first.");
         }
+    }
+    public boolean hasReservation(){//returns true or false if the user has a reservation.
+        return hasReservation;
     }
 
     public static void modifyUser(int id, String command){ //the command is what part of the user they would like to change
