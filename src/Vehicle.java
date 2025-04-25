@@ -2,6 +2,7 @@ import java.time.*;
 import java.util.*;
 public class Vehicle {
     public static Set<Vehicle> availableVehicles = new HashSet<>(); //available vehicles for clients
+    public static Set<Vehicle> toReturn = new HashSet<>();
     private int id;
     private static int lastID;
     private String type;
@@ -78,6 +79,12 @@ public class Vehicle {
     }
     public String getPlace(){
         return this.place;
+    }
+    public double getPrice(){
+        return this.price;
+    }
+    public double getFracTime(){
+        return this.fracTime;
     }
 
     //methods
