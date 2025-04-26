@@ -32,7 +32,7 @@ public class station {
             System.out.println("You have a current reservation!");
             return;
         }
-        if(hasAvailable && !user.hasReservation()){ //if there are no available vehicles offer a wating list.
+        if(!hasAvailable && !user.hasReservation()){ //if there are no available vehicles offer a wating list.
             Scanner scanner = new Scanner(System.in);
             System.out.println("There are currently no available vehicles. \nWould you like to enter a waiting queue? Type [Yes] or [No]");
             String command = scanner.nextLine();
@@ -107,7 +107,7 @@ public class station {
                 reservationtimes.remove(entry.getKey()); //removes from reservatin times
                 for(Map.Entry<User, Vehicle> entry2 : reservations.entrySet()){
                     if(entry2.getValue().equals(entry.getKey())){
-                        Vehicle.vehicles.add(entry2.getValue()); // puts back in available vehicles ***Lorenzo note: this should now instead of returning to the vehicles list modify is Available to True***
+                        entry2.getValue().setAvailable(true); // puts back in available vehicles ***Lorenzo note: this should now instead of returning to the vehicles list modify is Available to True*** !!!FIXED!!!** 
                         reservations.remove(entry2.getKey()); //removes from reservations
                     }
                 }
