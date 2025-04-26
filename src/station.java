@@ -16,6 +16,7 @@ public class station {
     public static int ademCapacity = 0;
     public static Map<User,Vehicle> reservations = new HashMap<>(); //pairs clients with the veichle they reserved 
     public static Map<Vehicle, LocalTime> reservationtimes = new HashMap<>(); // pairs the user to the time its reserved the vehicles
+    public static ArrayList<Double> transactions = new ArrayList<>();//keeps track of total transactions in the programm
     public static Queue<User> waitingList = new LinkedList<>();//waiting queue for clients when no vehicles are available
     public static boolean hasAvailable = false;
 
@@ -45,8 +46,8 @@ public class station {
             }
             scanner.close();
             return;
-        }
-        modifyiftimePassed(); // changes the availability for all vehicles whos time frame for renting has expired or hasnt been met yet
+        }                      // v this should be run in the app no? v
+        modifyiftimePassed(); // changes the availability for all vehicles whos time frame for renting has expired or hasnt been met yet 
         Map<Integer,Vehicle> availablevehiclesMap = new HashMap<>(); //makes a list of the vehicles and gives them a number if they are available
         for(Vehicle vehicle: Vehicle.vehicles){
             if(vehicle.isAvailable()){ //only adds if the vehicle is available;
@@ -75,11 +76,14 @@ public class station {
             break;
         }
         long hoursRented = Duration.between(LocalTime.now(),endTime).toHours();
-
+        Double transaction = ((hoursRented-1)*(availablevehiclesMap.get(selected).getFracTime()))+availablevehiclesMap.get(selected).getPrice();//Note: Made by kemu
+        transactions.add(transaction);//adds transaction Note: Made by kemu
+        user.addBalance(-transaction);//takes away from the balance of the user what he payed for the reservation of the vehicle
+        availablevehiclesMap.get(selected).getOwner().addBalance(transaction);// adds the income made by the owner of the vehicle
 
         reservations.put(user, availablevehiclesMap.get(selected));
         System.out.println("You have reserved this vehicle!");
-        System.out.println("Your total is: $"+((hoursRented-1)*(availablevehiclesMap.get(selected).getFracTime()))+availablevehiclesMap.get(selected).getPrice());
+        System.out.println("Your total is: $"+transaction); //Note: Made by kemu
         reservationtimes.put(availablevehiclesMap.get(selected),endTime); //map keeping the users with reservations and whow many hours they rented for 
         Vehicle.vehicles.remove(availablevehiclesMap.get(selected));
         scanner.close();

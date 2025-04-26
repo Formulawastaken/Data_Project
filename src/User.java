@@ -13,14 +13,14 @@ public class User {
     private int balance;//to keep track of each users balance
     public static boolean hasReservation = false; //Used to check if the user has a reservation when trying to make one.
 	
-	public User(String name,String email,String type,String numEst,String numTel,int balance) {
+	public User(String name,String email,String type,String numEst,String numTel) { //took away balance from parameters because it should always beggin at 0
 		this.name = name;
 		this.email = email;
 		this.type = type;
 		this.numEst = numEst;
 		this.numTel = numTel;
         this.id = lastID++; //Assigns the id incrementing from the last assigned id, should keep everyones id unique even if a user is deleted.
-        this.balance = balance;
+        this.balance = 0;
         users.add(this);
 	}
 	
@@ -130,5 +130,8 @@ public class User {
             System.out.println("Input the new telephone number for the user");
         }
         scanner.close();
+    }
+    public void addBalance(Double income){
+        this.balance+=income;
     }
 }

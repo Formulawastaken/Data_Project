@@ -4,7 +4,7 @@ public class Vehicle {
     public static Set<Vehicle> vehicles = new HashSet<>(); //list of all vehicles
     public static Set<Vehicle> toReturn = new HashSet<>();
     private int id;
-    private static int lastID;
+    private static int lastID=0;
     private String type;
     private String description;
     private LocalTime startTime;
@@ -13,9 +13,9 @@ public class Vehicle {
     private User owner; //TODO maybe?
     private double price; //Added a way to give vehicles a price (in credits).
     private double fracTime;//Price for time after first hour;
-    private static boolean isAvailable; // to check if a vehicle is available in the availableVehicles list or not.
+    private boolean isAvailable; // to check if a vehicle is available in the availableVehicles list or not. kemu note:Why was it static
     //constructor
-    public Vehicle(String type, String description, String startTime, String endTime, String place){
+    public Vehicle(String type, String description, String startTime, String endTime, String place, User owner){
         this.id = lastID++; //Assigns the id incrementing from the last assigned id, should keep everyones id unique even if a user is deleted.
         this.type=type; 
         this.description=description;
@@ -24,6 +24,7 @@ public class Vehicle {
         this.startTime = LocalTime.of(Integer.parseInt(startTimeSplit[0]), Integer.parseInt(startTimeSplit[1]));  
         this.endTime = LocalTime.of(Integer.parseInt(endTimeSplit[0]), Integer.parseInt(endTimeSplit[1]));
         this.place=place;
+        this.owner=owner;
         this.isAvailable = true;
         switch(type){
             case "Scooter":
@@ -66,9 +67,9 @@ public class Vehicle {
     }
     public void setAvailable(boolean availability){
         if(availability){
-           isAvailable = false;
+           this.isAvailable = false;
         }else{ 
-            isAvailable = true;
+            this.isAvailable = true;
         }
     }
 
@@ -96,7 +97,10 @@ public class Vehicle {
         return this.fracTime;
     }
     public boolean isAvailable(){
-        return isAvailable;
+        return this.isAvailable;
+    }
+    public User getOwner(){
+        return this.owner;
     }
 
     //methods
@@ -109,8 +113,8 @@ public class Vehicle {
         System.out.println("Cost: "+price);
     }
 
-    public static void addVehicle(String type, String description, String startTime, String endTime, String place ){
-        vehicles.add(new Vehicle(type,description,startTime,endTime, place ));
+    public static void addVehicle(String type, String description, String startTime, String endTime, String place, User owner ){
+        vehicles.add(new Vehicle(type,description,startTime,endTime,place,owner ));
     }
     public static void removeVehicle(int id){
         if(!vehicles.isEmpty()){
